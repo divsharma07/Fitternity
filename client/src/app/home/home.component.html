@@ -1,0 +1,23 @@
+<div class="container mt-5">
+    <div *ngIf="!registerMode" style='text-align: center;'>
+        <h1>
+            Find Your Match
+            <p class="lead"> Come on and view your match in this all new dating app..Sign Up now! </p>
+            <div class="text-center">
+                <button (click)="registerToggle()" class="btn btn-primary btn-lg mr-2">Register</button>
+                <button class="btn btn-primary btn-lg">Learn More</button>
+            </div>
+        </h1>
+    </div>
+
+    <div *ngIf="registerMode" class="container">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <p>
+                    <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
