@@ -9,7 +9,7 @@ import { AccountService } from './_services/account.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'The Dating App';
+  title = 'The Fitness App';
   users: any;
 
   constructor(private accountService: AccountService) {}
