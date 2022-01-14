@@ -1,6 +1,7 @@
 import { User } from "./users";
 
-export class UserParams { 
+export class UserParams {
+    username: string; 
     gender: string;
     minAge = 18;
     maxAge = 99;
@@ -10,5 +11,6 @@ export class UserParams {
 
     constructor(user: User) {
         this.gender = user.gender === 'female' ? 'male' : 'female';
+        this.username = user.username
     }
 }
