@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { NgxGalleryImage } from '@kolkov/ngx-gallery';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
@@ -98,5 +99,17 @@ export class MembersService {
     let params = getPaginationHeaders(pageNumber, pageSize)
     params = params.append('predicate', predicate)
     return getPaginatedResult<Partial<Member[]>>(this.baseUrl + 'likes', params, this.http);
+  }
+
+  getImages(member: Member) : NgxGalleryImage[] {
+    const imageUrls = [];
+    for (const photo of member.photos) {
+      imageUrls.push({
+        small: photo?.url,
+        medium: photo?.url,
+        big: photo?.url
+      })
+    }
+    return imageUrls
   }
 }

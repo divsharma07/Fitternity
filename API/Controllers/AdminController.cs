@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Entities;
+using API.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +14,13 @@ namespace API.Controllers
     public class AdminController : BaseApiController
     {
         private readonly UserManager<AppUser> _userManager;
-        public AdminController(UserManager<AppUser> userManager)
+        private readonly IUserRepository _userRepository;
+        private readonly IPhotoService _photoService;
+        public AdminController(IUserRepository userRepository, UserManager<AppUser> userManager, IPhotoService photoService)
         {
-            _userManager = userManager;
-            
+            _photoService = photoService;
+            _userRepository = userRepository;
+            _userManager = userManager;            
         }
 
         [Authorize(Policy = "RequiredAdminRole")]
@@ -35,6 +39,29 @@ namespace API.Controllers
                 .ToListAsync();
 
             return Ok(users);
+        }
+
+        [HttpDelete("delete-photo/{username}/{photoId}")]
+        public async Task<ActionResult> DeletePhoto(string username, int photoId) 
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(username);
+
+            var photo = user.Photos.First(x => x.Id == photoId);
+
+            if (photo == null) return NotFound();
+
+            //if (photo.IsMain) return BadRequest("You cannot delete your main photo");
+
+            if (photo.PublicId != null) {
+                var results = await _photoService.DeletePhotoAsync(photo.PublicId);
+                if (results.Error != null) return BadRequest(results.Error.Message);
+            }
+
+            user.Photos.Remove(photo);
+
+            if(await _userRepository.SaveAllAsync()) return Ok();
+
+            return BadRequest("Failed to delete the photo");
         }
         
         [HttpPost("edit-roles/{username}")]

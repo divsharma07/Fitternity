@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">Manage {{member.username}}'s photos</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #rolesForm="ngForm" id="rolesForm" role="form">
+        <div class="row" id="container">
+            <div *ngIf="member.photos.length === 0"><h4>User has no photos</h4></div>
+            <div id="parent" class="col-2" *ngFor="let photo of member.photos">                
+                <img src="{{photo.url}}" alt="{{photo.url}}" class="img-thumbnail p-1">
+                <div>        
+                    <button 
+                        (click)="deletePhoto(photo.id)"
+                        class="btn btn-sm btn-danger"><i class="fa fa-trash button-child"></i></button>
+                </div>
+            </div>
+        </div>        
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Done</button>
+  </div>
