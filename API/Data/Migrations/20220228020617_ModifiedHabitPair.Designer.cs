@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220228020617_ModifiedHabitPair")]
+    partial class ModifiedHabitPair
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -227,13 +229,7 @@ namespace API.Data.Migrations
                     b.Property<string>("OtherUserGraph")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("OtherUserName")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("SourceUserGraph")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SourceUserName")
                         .HasColumnType("TEXT");
 
                     b.HasKey("HabitName", "SourceUserId", "OtherUserId");

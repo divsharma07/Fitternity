@@ -1,0 +1,87 @@
+.habit-tag {
+    background-color: #ce52da;
+    padding: 3px;
+    border-radius: 10px;
+    border-width: 30px;
+    background-repeat: repeat;
+    width: 120px;
+    height: 30px;
+}
+
+#container {
+    color: white;
+    width: 140px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#content {
+    background: #06c;
+    flex: 0 0 120px;
+}
+
+.responsiveImage {
+    width: 100%;
+    max-width: 500px;
+    width: 400px;
+    height: 800px;
+    height: 100%;
+    max-height: 800px;
+}
+
+.habit-image-container {
+    position: relative;
+    padding: 0;
+    width: 300px;
+    display: block;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.habitImage:hover {
+    transform: scale(1.8, 1.8);
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+    opacity: 1;
+}
+
+.content {
+    opacity: 0;
+    font-size: 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #1c87c9;
+    background-color: rgba(200, 200, 200, 0.5);
+    width: 100px;
+    height: 100px;
+    -webkit-transition: all 400ms ease-out;
+    -moz-transition: all 400ms ease-out;
+    -o-transition: all 400ms ease-out;
+    -ms-transition: all 400ms ease-out;
+    transition: all 400ms ease-out;
+    text-align: center;
+}
+
+.habit-image-container .content:hover {
+    opacity: 1;
+}
+
+.habit-image-container .content .text {
+    height: 0;
+    opacity: 1;
+    transition-delay: 0s;
+    transition-duration: 0.4s;
+}
+
+.habit-image-container .content:hover .text {
+    opacity: 1;
+    transform: translateY(100px);
+    -webkit-transform: translateY(100px);
+}
+
+.common-habits-container {
+    margin-top: 50px
+}

@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220220053446_AddedHabits")]
+    partial class AddedHabits
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,25 +140,6 @@ namespace API.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("API.Entities.AppUserHabit", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("AppUserId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.ToTable("AppUserHabits");
-                });
-
             modelBuilder.Entity("API.Entities.AppUserRole", b =>
                 {
                     b.Property<int>("UserId")
@@ -208,41 +191,17 @@ namespace API.Data.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Name");
+                    b.Property<int?>("AppUserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Category")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Name", "Id");
+
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("Habits");
-                });
-
-            modelBuilder.Entity("API.Entities.HabitPair", b =>
-                {
-                    b.Property<string>("HabitName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("SourceUserId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("OtherUserId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("OtherUserGraph")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OtherUserName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SourceUserGraph")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SourceUserName")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("HabitName", "SourceUserId", "OtherUserId");
-
-                    b.HasIndex("OtherUserId");
-
-                    b.HasIndex("SourceUserId");
-
-                    b.ToTable("HabitsPair");
                 });
 
             modelBuilder.Entity("API.Entities.Message", b =>
@@ -411,13 +370,6 @@ namespace API.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("API.Entities.AppUserHabit", b =>
-                {
-                    b.HasOne("API.Entities.AppUser", null)
-                        .WithMany("UserHabits")
-                        .HasForeignKey("AppUserId");
-                });
-
             modelBuilder.Entity("API.Entities.AppUserRole", b =>
                 {
                     b.HasOne("API.Entities.AppRole", "Role")
@@ -444,23 +396,11 @@ namespace API.Data.Migrations
                         .HasForeignKey("GroupName");
                 });
 
-            modelBuilder.Entity("API.Entities.HabitPair", b =>
+            modelBuilder.Entity("API.Entities.Habit", b =>
                 {
-                    b.HasOne("API.Entities.AppUser", "OtherUser")
-                        .WithMany()
-                        .HasForeignKey("OtherUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("API.Entities.AppUser", "SourceUser")
-                        .WithMany("HabitPairs")
-                        .HasForeignKey("SourceUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("OtherUser");
-
-                    b.Navigation("SourceUser");
+                    b.HasOne("API.Entities.AppUser", null)
+                        .WithMany("Habits")
+                        .HasForeignKey("AppUserId");
                 });
 
             modelBuilder.Entity("API.Entities.Message", b =>
@@ -555,7 +495,7 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.Entities.AppUser", b =>
                 {
-                    b.Navigation("HabitPairs");
+                    b.Navigation("Habits");
 
                     b.Navigation("LikedByUsers");
 
@@ -566,8 +506,6 @@ namespace API.Data.Migrations
                     b.Navigation("MessagesSent");
 
                     b.Navigation("Photos");
-
-                    b.Navigation("UserHabits");
 
                     b.Navigation("UserRoles");
                 });

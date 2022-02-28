@@ -1,0 +1,27 @@
+<p><b>Looks like {{username}} have set on a journey to be 1% better in these areas!</b></p>
+<div *ngFor="let habit of memberHabits" id="container">
+    <div class="badge habit-tag text-center" id="content" (click)="addHabitPair(habit.name)">{{habit.name}}</div>
+</div>
+<div *ngIf="memberHabitPair.length > 0" class="common-habits-container"><b>Look at your common journeys here:</b></div>
+<tr *ngIf="memberHabitPair.length > 0">
+    <th class="text-center col-md-2">Habit</th>
+    <th class="text-center col-md-8">You</th>
+    <th class="text-center col-md-15">Them</th>
+</tr>
+<table *ngIf="memberHabitPair.length > 0" id="habits-table">
+    <div *ngFor="let habit of memberHabitPair">
+        <tr>
+            <td>
+                <div class="badge habit-tag text-center">{{habit.habitName}}</div>
+            </td>
+            <td>
+                <img *ngIf="habit.sourceUserName == user.username" src="{{habit.sourceUserGraph}}" (click)="addHabitActivity(habit.otherUserName, habit.habitName)" class="responsiveImage habitImage">
+                <img *ngIf="habit.sourceUserName != user.username" src="{{habit.otherUserGraph}}" (click)="addHabitActivity(habit.sourceUserName, habit.habitName)" class="responsiveImage habitImage">
+            </td>
+            <td>
+                <img *ngIf="habit.otherUserName != user.username" src="{{habit.otherUserGraph}}" class="responsiveImage habitImage">
+                <img *ngIf="habit.otherUserName == user.username" src="{{habit.sourceUserGraph}}" class="responsiveImage habitImage">
+            </td>
+        </tr>
+    </div>
+</table>

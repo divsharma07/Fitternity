@@ -33,6 +33,8 @@ import { UserManagementComponent } from './admin/user-management/user-management
 import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 import { PhotosModalComponent } from './modals/photos-modal/photos-modal.component';
+import { MemberHabitsComponent } from './members/member-habits/member-habits.component';
+import { MemberHabitsPairComponent } from './members/member-habits-pair/member-habits-pair.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +59,9 @@ import { PhotosModalComponent } from './modals/photos-modal/photos-modal.compone
     UserManagementComponent,
     PhotoManagementComponent,
     RolesModalComponent,
-    PhotosModalComponent
+    PhotosModalComponent,
+    MemberHabitsComponent,
+    MemberHabitsPairComponent
   ],
   imports: [
     BrowserModule,

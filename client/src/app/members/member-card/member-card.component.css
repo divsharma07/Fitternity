@@ -44,3 +44,19 @@
     animation: fa-blink 1.5s linear infinite;
     color: rgb(1, 189, 42);
 }
+
+.habit-tag 
+{
+    background-color: #ce52da;
+    padding: 3px;
+    border-radius: 10px;
+    border-width: 30px;
+    background-repeat: repeat;
+    width: 70px;
+    height: 25px;
+}
+
+.horizontal {
+    display: flex;
+    justify-content: center;
+}

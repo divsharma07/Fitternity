@@ -16,6 +16,11 @@ namespace API.Data
         public DbSet<AppUser> Users { get; set; }
         public DbSet<UserLike> Likes { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<AppUserHabit> AppUserHabits { get; set; }
+        public DbSet<Habit> Habits { get; set; }
+
+        public DbSet<HabitPair> HabitsPair { get; set; }
+
         public DbSet<Group> Groups { get; set; }
         public DbSet<Connection> Connections { get; set; }
         protected override void OnModelCreating(ModelBuilder builder) 
@@ -34,6 +39,9 @@ namespace API.Data
                 .HasForeignKey(ur => ur.RoleId)
                 .IsRequired();
             
+            builder.Entity<Habit>().HasKey(nameof(Habit.Name));
+
+            builder.Entity<HabitPair>().HasKey(p => new { p.HabitName, p.SourceUserId, p.OtherUserId});
 
             builder.Entity<UserLike>()
                 .HasKey(k => new {k.SourceUserId, k.LikedUserId});
@@ -48,6 +56,12 @@ namespace API.Data
                 .HasOne(s => s.LikedUser)
                 .WithMany(l => l.LikedByUsers)
                 .HasForeignKey(s => s.LikedUserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<HabitPair>()
+                .HasOne(s => s.SourceUser)
+                .WithMany(l => l.HabitPairs)
+                .HasForeignKey(s => s.SourceUserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Message>()
